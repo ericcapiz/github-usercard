@@ -55,15 +55,30 @@ const cards = document.querySelector('.cards');
 axios.get('https://api.github.com/users/ericcapiz')
 .then(response =>{
   console.log(response);
-  const ericProfile = response.data;
+  const ericProfile = response.data; //variable holds the data api
   const proCards = document.querySelector('.cards');
-  const proInfo = gitCard(ericProfile);
-  proCards.appendChild(proInfo)
+  const proInfo = gitCard(ericProfile); //variable holds the function that creates and displays the card
+  proCards.appendChild(proInfo) //displays the card in the cards div
 })
 .catch((errorResponse)=>{
-  alert('Wrong Site!')
+  alert('Something Broke')
 })
-const followersArray = [];
+
+//follower array with forEach below
+const followersArray = ["tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",];
+
+  followersArray.forEach (user => axios.get(`https://api.github.com/users/${user}`)
+  .then (response => {
+    let card = gitCard(response.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(card)
+  }))
+
+//
 
 const gitCard=(obj)=>{
 
