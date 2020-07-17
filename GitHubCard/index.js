@@ -102,6 +102,8 @@ const gitCard=(obj)=>{
   cardInfo.classList.add('card-info');
   nameH3.classList.add('name');
   pUser.classList.add('username');
+  proLink.href = obj.html_url;
+  
 
   //append
 
@@ -128,6 +130,7 @@ const gitCard=(obj)=>{
   pFollowers.textContent = `Followers: ${obj.followers}`;
   pFollowing.textContent = `Following: ${obj.following}`;
   pBio.textContent = `Bio: ${obj.bio}`;
+  
 
 
   return gitCard;
