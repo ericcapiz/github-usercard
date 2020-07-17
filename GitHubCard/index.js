@@ -1,8 +1,11 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,8 +31,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -49,6 +50,74 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cards = document.querySelector('.cards');
+axios.get('https://api.github.com/users/ericcapiz')
+.then(response =>{
+  console.log(response);
+  const ericProfile = response.data;
+  const proCards = document.querySelector('.cards');
+  const proInfo = gitCard(ericProfile);
+  proCards.appendChild(proInfo)
+})
+.catch((errorResponse)=>{
+  alert('Wrong Site!')
+})
+const followersArray = [];
+
+const gitCard=(obj)=>{
+
+  //create elements
+
+  const gitCard = document.createElement('div');
+  const proImage = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const nameH3 = document.createElement('h3');
+  const pUser= document.createElement('p');
+  const pLocation = document.createElement('p');
+  const pProfile = document.createElement('p');
+  const proLink = document.createElement('a');
+  const pFollowers = document.createElement('p');
+  const pFollowing = document.createElement('p');
+  const pBio = document.createElement('p');
+
+  //add classes
+
+  gitCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  nameH3.classList.add('name');
+  pUser.classList.add('username');
+
+  //append
+
+  gitCard.appendChild(proImage);
+  gitCard.appendChild(cardInfo);
+  cardInfo.appendChild(nameH3);
+  cardInfo.appendChild(pUser);
+  cardInfo.appendChild(pLocation);
+  cardInfo.appendChild(pProfile);
+  cardInfo.appendChild(pFollowers);
+  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(pBio);
+
+//assigning the data from the api
+
+  proImage.src = obj.avatar_url;
+  pLocation.textContent = `Location: ${obj.location}`;
+  nameH3.textContent = `Name: ${obj.name}`;
+  pUser.textContent = `Username: ${obj.login}`;
+  proLink.textContent = obj.html_url;
+  pProfile.textContent = `Profile: `
+  pProfile.appendChild(proLink)
+  
+  pFollowers.textContent = `Followers: ${obj.followers}`;
+  pFollowing.textContent = `Following: ${obj.following}`;
+  pBio.textContent = `Bio: ${obj.bio}`;
+
+
+  return gitCard;
+}
+
 
 /*
   List of LS Instructors Github username's:
